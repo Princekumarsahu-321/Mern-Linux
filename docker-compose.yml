@@ -1,29 +1,12 @@
 
 services:
-  backend:
-    build: ./backend
-    container_name: backend
-    ports:
-      - "5000:5000"
-    restart: unless-stopped
-
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - backend
-    restart: unless-stopped
-
   prom-server:
-    image: prom/prometheus
+    image: prom/prometheus:latest
     container_name: prom-server
     ports:
       - "9090:9090"
     volumes:
       - ./prometheus-config.yaml:/etc/prometheus/prometheus.yml:ro
-    depends_on:
-      - backend
     restart: unless-stopped
+
 
